@@ -26,7 +26,7 @@ apple_close_copy = apple_close.copy()
 expiration_days_limit = None
 take_profit_pct = 10
 stop_loss_pct = 10
-position_labels = take_profit_stop_loss_labeller.PositionSideLabeler(apple_close,
+position_labels = take_profit_stop_loss_labeller.PositionSideLabeler(apple_close_copy,
                                                                         take_profit_pct=take_profit_pct,
                                                                         stop_loss_pct=stop_loss_pct,
                                                                         expiration_days_limit=expiration_days_limit)
@@ -145,3 +145,18 @@ scores = clf.score(test_features, test_targets)
 print("Score: ", np.round(scores, 3))
 print("RandomForestClassifier: Accuracy on training set: {:.3f}".format(clf.score(train_features, train_targets)))
 print("RandomForestClassifier: Accuracy on test set: {:.3f}".format(clf.score(test_features, test_targets)))
+
+from signals.data_and_signal_feed_assembly import TradingSimDataAndSignalHandler
+
+trade_sim_stock_data_and_signal = TradingSimDataAndSignalHandler(apple_close, preds, y_test.index)
+trade_sim_signal = trade_sim_stock_data_and_signal.create_complete_signal()
+trade_sim_stock_data = trade_sim_stock_data_and_signal.create_truncated_trade_sim_stock_data()
+trade_sim_data_and_signal_dict = trade_sim_stock_data_and_signal.create_ready_signal_stock_data_dict()
+
+
+from backtesting import strategy
+
+sim = strategy.TestStrategy(trade_sim_stock_data, trade_sim_signal)
+sim.start_trading()
+sim_portfolio = sim.portfolio_handler_cls
+print(sim_portfolio.portfolio_history_dict)

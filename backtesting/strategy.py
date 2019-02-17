@@ -24,6 +24,9 @@ class TestStrategy:
                 # print("Signal: 1  on Date: {0}".format(self.current_date))
                 self.portfolio_handler_cls.long_position_consultant()
 
+            elif self.signal[d] == -1 or self.signal[d]:
+                continue
+
 
 
 
