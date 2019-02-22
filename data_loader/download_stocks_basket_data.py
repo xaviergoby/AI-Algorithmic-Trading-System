@@ -26,9 +26,10 @@ class StockDataBasket:
         self.industry_name = list(self.industry_specific_stock_idxs.keys()) if len(list(self.industry_specific_stock_idxs.keys())) != 1     \
             else list(self.industry_specific_stock_idxs.keys())[0]
         self.industry_specific_stock_idxs_list = self.industry_specific_stock_idxs[self.industry_name]
-        self.file_name = "{0}_stocks_data_{1}_{2}".format(self.industry_name, self.start_date, self.end_date)
+        self.file_name = "{0}_stocks_data_{1}_{2}.{3}".format(self.industry_name, self.start_date,
+                                                              self.end_date, "h5")
 
-    def save_stock_data_basket_as_h5_file(self):
+    def save_hdf5_stock_data_basket(self):
         stock_basket_store = pd.HDFStore(self.file_name)
         industry_idxs = self.industry_specific_stock_idxs_list
         for idx in industry_idxs:
@@ -37,9 +38,9 @@ class StockDataBasket:
             stock_data.to_hdf(stock_basket_store, key=idx)
         stock_basket_store.close()
 
-    def load_h5_file_stock_data_basket(self):
+    def load_hdf5_stock_data_basket(self, file_name):
         stock_basket_dict = {}
-        stock_basket_store = pd.HDFStore(self.file_name)
+        stock_basket_store = pd.HDFStore(file_name)
         stock_basket_store_keys = stock_basket_store.keys()
         for idx_key in stock_basket_store_keys:
             stock_data = stock_basket_store.get(idx_key)
@@ -48,12 +49,30 @@ class StockDataBasket:
         stock_basket_store.close()
         return stock_basket_dict
 
+    def save_and_load_hdf5_stock_data_basket(self):
+        self.save_hdf5_stock_data_basket()
+        file_name = self.file_name
+        stock_basket_data = self.load_hdf5_stock_data_basket(file_name)
+        return stock_basket_data
 
-# if __name__ == "__main__":
-#     stock_basket_idxs_dict = {"Semiconductors": ["INTC", "QCOM", "TXN", "ADI", "XLNX", "ASML", "NVDA", "AMD"]}
-#     x = StockDataBasket(stock_basket_idxs_dict)
-#     x.save_stock_data_basket_as_h5_file()
-#     my_data_dict = x.load_h5_file_stock_data_basket()
+    def load_specific_stock_basket_data(self, file_name):
+        try:
+            test_opening_file_var = open(file_name, 'r')
+            stock_basket_dict = self.load_hdf5_stock_data_basket(file_name)
+            return stock_basket_dict
+        except FileNotFoundError:
+            print("The file '{0}' was not found!")
+            return None
+
+
+if __name__ == "__main__":
+    stock_basket_idxs_dict = {"Semiconductors": ["INTC", "QCOM", "TXN", "ADI", "XLNX", "ASML", "NVDA", "AMD"]}
+    x = StockDataBasket(stock_basket_idxs_dict)
+    x.save_hdf5_stock_data_basket()
+    # my_data_dict = x.save_and_load_hdf5_stock_data_basket()
+    file_name = x.file_name
+    my_data_dict = x.load_specific_stock_basket_data(file_name)
+    print(my_data_dict, len(my_data_dict), type(my_data_dict))
 
 
 
