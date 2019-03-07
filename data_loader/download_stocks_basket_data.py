@@ -26,8 +26,8 @@ class StockDataBasket:
         self.industry_name = list(self.industry_specific_stock_idxs.keys()) if len(list(self.industry_specific_stock_idxs.keys())) != 1     \
             else list(self.industry_specific_stock_idxs.keys())[0]
         self.industry_specific_stock_idxs_list = self.industry_specific_stock_idxs[self.industry_name]
-        self.file_name = "{0}_stocks_data_{1}_{2}.{3}".format(self.industry_name, self.start_date,
-                                                              self.end_date, "h5")
+        self.file_name = "{0}_stocks_data_{1}_{2}".format(self.industry_name, self.start_date,
+                                                              self.end_date)
 
     def save_hdf5_stock_data_basket(self):
         stock_basket_store = pd.HDFStore(self.file_name)

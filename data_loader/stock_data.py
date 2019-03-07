@@ -12,7 +12,7 @@ class StockData:
 
     source = "yahoo"
 
-    def __init__(self, ticker_index, end_date=datetime.today().strftime("%m-%d-%Y"), start_date="01/06/2014"):
+    def __init__(self, ticker_index, end_date=datetime.today().strftime("%m-%d-%Y"), start_date="01/06/2010"):
         self.ticker_index = ticker_index
         self.start_date = start_date
         self.end_date = end_date
