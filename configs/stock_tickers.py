@@ -1,7 +1,0 @@
-
-
-
-
-
-
-SEMICONDUCTOR_TICKERS = ["INTC", "QCOM", "TXN", "ADI", "XLNX", "ASML", "NVDA", "AMD"]
