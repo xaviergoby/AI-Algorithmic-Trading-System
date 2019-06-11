@@ -1,0 +1,51 @@
+{
+  "time_format_str": "%Y-%m-%d",
+  "alpha_vantage_api_key": "Y108UZC2YEK2VKN5",
+  "news_api": "9f20ae8bda0b4e65b5886135b6604005",
+  "database_path": "../data/testdb.db",
+  "def_valuation_metrics": [
+    "EPS_RATIO-value",
+    "PE_RATIO-value"
+  ],
+  "yahoo_fin_company_profile_info_html_dict": {
+    "def_valuation_metrics": [
+      "company_name",
+      "sector",
+      "industry"
+    ],
+    "company_name_html": {
+      "html_tag": "h3",
+      "html_attr_dict": {
+        "key": "class",
+        "value": "Fz(m) Mb(10px)"
+      }
+    },
+    "main_html_element": {
+      "html_tag": "p",
+      "html_attrs_dict": {
+        "keys": [
+          "class",
+          "data-reactid"
+        ],
+        "values": [
+          "D(ib) Va(t)",
+          "18"
+        ]
+      }
+    },
+    "market_sector_html": {
+      "html_tag": "span",
+      "html_attr_dict": {
+        "key": "data-reactid",
+        "value": "21"
+      }
+    },
+    "market_industry_html": {
+      "html_tag": "span",
+      "html_attr_dict": {
+        "key": "data-reactid",
+        "value": "25"
+      }
+    }
+  }
+}
