@@ -10,8 +10,9 @@ class Settings:
         return self._config[key]
 
     def display_top_setting_keys(self):
-        top_setting_keys = list(settings.__dict__['_config'].keys())
+        top_setting_keys = list(default_settings.__dict__['_config'].keys())
         return top_setting_keys
 
 
-settings = Settings(os.path.join(os.path.dirname(os.path.realpath(__file__)), "default_settings.json"))
+default_settings = Settings(os.path.join(os.path.dirname(os.path.realpath(__file__)), "default_settings.json"))
+stock_data_settings = Settings(os.path.join(os.path.dirname(os.path.realpath(__file__)), "stocks_data_settings.json"))

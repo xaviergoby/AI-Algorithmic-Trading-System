@@ -8,4 +8,5 @@
 # SEMICONDUCTOR_TICKERS = ["INTC", "NVDA", "ADI", "QCOM", "AMD", "XLNX", "ASML", "TXN"]
 
 # Works fine! Does not incl. "ADI" but instead incl's. "MU"
+SEMICONDUCTOR_TICKERS : ["INTC", "NVDA", "MU", "QCOM", "AMD", "XLNX", "ASML", "TXN"]
 SEMICONDUCTOR_TICKERS = ["INTC", "NVDA", "MU", "QCOM", "AMD", "XLNX", "ASML", "TXN"]

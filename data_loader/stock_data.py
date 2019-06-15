@@ -11,8 +11,9 @@ class StockData:
     from datetime import datetime
 
     source = "yahoo"
-
-    def __init__(self, ticker_index, end_date=datetime.today().strftime("%m-%d-%Y"), start_date="01/06/2010"):
+    # '2011-06-16'
+    # '01/06/2010'
+    def __init__(self, ticker_index, end_date=datetime.today().strftime("%m-%d-%Y"), start_date="06/16/2011"):
         self.ticker_index = ticker_index
         self.start_date = start_date
         self.end_date = end_date
@@ -48,7 +49,7 @@ class StockData:
         """
 
         source = 'yahoo'
-        data = web.DataReader(self.ticker_index,data_source=source, start=self.start_date, end=self.end_date)
+        data = web.DataReader(self.ticker_index, data_source=source, start=self.start_date, end=self.end_date)
         # wk_days = [d.strftime("%A") for d in data.index.date]
         datetime_dates_list = data.index.date.tolist()
         # data.insert(0, "WeekDays", wk_days)
@@ -66,3 +67,10 @@ class StockData:
         # data.insert(0, "Dates", datetime_dates_list)
         return data
 
+
+
+if __name__ == "__main__":
+    nvda = StockData("NVDA")
+    nvda_df = nvda.get_stocks_data()
+    nvda_close = nvda_df.Close
+    print(nvda_df.index)

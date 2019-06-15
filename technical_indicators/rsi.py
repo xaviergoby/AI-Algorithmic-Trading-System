@@ -38,7 +38,7 @@ class RSI:
 
         RS = _gain / _loss
         result = pd.Series(100. - (100. / (1. + RS)), name="RSI")
-        result = result.dropna()
+        # result = result.dropna()
         return result
 
     def get_rsi_labels(self):
@@ -75,12 +75,12 @@ class RSI:
 
 
 
-# if __name__ == "__main__":
-#     from load_data import data_getter_funcs
-#     apple = data_getter_funcs.get_stocks_data()
-#     close = apple["Close"]
-#     rsi = RSI(close, time_period=14, overbought_level=70, oversold_level=30)
-#     rsi_values = rsi.get_rsi_values()
+if __name__ == "__main__":
+    from data_loader.load_data import data_getter_funcs
+    apple = data_getter_funcs.get_stocks_data()
+    close = apple["Close"]
+    rsi = RSI(close, time_period=14, overbought_level=70, oversold_level=30)
+    rsi_values = rsi.get_rsi_values()
 #     print(len(rsi.get_rsi_values()), type(rsi.rsi_values), type(rsi.get_rsi_values()), rsi.rsi_values.shape)
 #     print(len(rsi.get_rsi_labels()), type(rsi.rsi_labels), type(rsi.get_rsi_labels()))
 
