@@ -8,6 +8,7 @@ class Portfolio:
                  take_profit_pct=10, stop_loss_pct=10):
         self.current_date = None
         self.current_price = None
+        self.current_portfolio_value = None
         self.cash_balance = cash_balance
         # This represents the maximum percentage of my cash balance I am willing to invest on any single given trade
         self.max_trade_risk_pct = max_trade_risk_pct
@@ -50,10 +51,10 @@ class Portfolio:
         self.daily_cash_balance_history.append(self.cash_balance)
         self.daily_num_of_open_orders_history.append(len(self.open_order))
 
-        portfolio_value = self.cash_balance+self.open_order[0].return_pct if len(self.open_order) != 0 else self.cash_balance
+        self.current_portfolio_value = self.cash_balance+self.open_order[0].return_pct if len(self.open_order) != 0 else self.cash_balance
         open_orders_total_return = self.open_order[0].return_pct if len(self.open_order) != 0 else 0
 
-        portfolio_info = [self.current_date, round(self.cash_balance, 2), round(portfolio_value, 2),
+        portfolio_info = [self.current_date, round(self.cash_balance, 2), round(self.current_portfolio_value, 2),
                           round(open_orders_total_return, 2), len(self.open_order)]
         for (key, value), info in zip(self.portfolio_history_dict.items(), portfolio_info):
             value.append(info)

@@ -1,18 +1,20 @@
 import pandas as pd
-from revamp import new_sma_crossover
-from technical_indicators.technical_indicator_funcs import SMA
-from revamp import new_rsi
-from load_data import data_getter_funcs
+from technical_indicators.sma_crossover import SMACrossOver
+from technical_indicators.rsi import RSI
+# from revamp import new_sma_crossover
+# from technical_indicators.technical_indicator_funcs import SMA
+# from revamp import new_rsi
+# from load_data import data_getter_funcs
 
 
-class ConstructSignal():
+class ConstructSignal:
 
     def __init__(self, data):
         self.data = data
-        self.dates = data.Dates.tolist()
+        # self.dates = data.Dates.tolist()
         self.close = data.Close
-        self.sma_crossover_signal = new_sma_crossover.SMACrossOver(self.close)
-        self.rsi_signal = new_rsi.RSI(self.close)
+        self.sma_crossover_signal = SMACrossOver(self.close)
+        self.rsi_signal = RSI(self.close)
         self.num_signals = []
         self.cat_signals = {}
         self.int_cat_signals = {}
@@ -76,7 +78,20 @@ class ConstructSignal():
 
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    from configs_and_settings.settings import stock_data_settings
+    from data_loader.yahoo_stock_data_feed import YahooStockDataFeed
+    
+    stock_symbols = stock_data_settings["stock_symbols"]
+    data_src = YahooStockDataFeed(stock_symbols)
+    stock_symbol = "NVDA"
+    stock_data = data_src.stocks_data_dict[stock_symbol]
+    stock_close = stock_data["Close"]
+    sig = ConstructSignal(stock_data)
+    sig.get_sma_crossover_signal_int_labels(5)
+    sig.get_rsi_signal_int_labels(70, 30)
+    sig.combined_num_signals_into_df()
+    sig.combined_int_cat_signals_into_df()
 #     apple = data_getter_funcs.get_stocks_data()
 #     strategy = SimpleBuyAndHoldStrategy(apple)
 #

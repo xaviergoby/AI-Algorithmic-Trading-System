@@ -1,0 +1,27 @@
+*Trading signal(s) is generated inside/by a strategy class
+
+*Buy when RSI =< 30 (1), hold when 30<RSI<70 and sell when RSI => 70 (-1)
+
+Question:
+
+I provide the market/trading simulator with the arguments for the:
+initial cash sum
+
+
+Either I have to specify the:
+init cash sum
+sl limit
+tp limit
+max trade risk
+In the instantiation of the trading sim class
+
+OR I need to provide my manually created bot with these when they are being created before being
+provided to the trading simulation
+
+If I do not provide a list of manually created bots to my trading sim and instead I provide it with a list
+of stock symbols then I must assign a stock symbol(s) to each of my bots according to some rule.
+
+
+
+
+I give my bot:

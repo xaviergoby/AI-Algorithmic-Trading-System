@@ -11,15 +11,17 @@ from technical_indicators import average_true_return
 import numpy as np
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.ensemble import BaggingClassifier
+from data_loader.yahoo_stock_data_feed import YahooStockDataFeed
+from configs_and_settings.settings import stock_data_settings
 
 
 
-
-
-apple = stock_data.StockData("AAPL")
+stock_data = YahooStockDataFeed(stock_data_settings["stock_symbols"])
+apple_df = stock_data.stocks_data_dict["AAPL"]
+# apple = stock_data.StockData("AAPL")
 # apple_df = apple.get_ema_smooth_stocks_data(trend_period=21)
-apple_df = apple.get_stocks_data()
-apple_close = apple_df.Close
+# apple_df = apple.get_stocks_data()
+apple_close = apple_df["Close"]
 apple_close_copy = apple_close.copy()
 
 
@@ -31,7 +33,7 @@ position_labels = take_profit_stop_loss_labeller.PositionSideLabeler(apple_close
                                                                         stop_loss_pct=stop_loss_pct,
                                                                         expiration_days_limit=expiration_days_limit)
 position_labels.start_labeller()
-cu = position_labels.get_results_df()
+label_results_df = position_labels.get_results_df()
 sides = position_labels.get_side_labels_series()
 # sides = sides.shift(-1)
 sides = sides.dropna()

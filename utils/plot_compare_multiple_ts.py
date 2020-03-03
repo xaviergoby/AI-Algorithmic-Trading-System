@@ -50,6 +50,9 @@ class StockDFDataBasketPlotter:
         plt.grid(b=True, which="major")
         plt.show()
 
-
-# StockDFDataBasketPlotter().plot_all_stocks_close_prices(my_data_dict)
-# daily_cr = my_data_dict["ADI"]["Close"].cumprod()
+if __name__ == "__main__":
+    from configs_and_settings.settings import stock_data_settings
+    stock_symbols = stock_data_settings["stock_Symbols"]
+    from data_loader.yahoo_stock_data_feed import YahooStockDataFeed
+    StockDFDataBasketPlotter().plot_all_stocks(my_data_dict)
+    daily_cr = my_data_dict["ADI"]["Close"].cumprod()

@@ -59,28 +59,28 @@ batch_input_shape = (2, 50, data_dim)
 input_shape = (n_prev, data_dim)
 
 def build_model(batch_input_shape, num_classes, input_shape):
-    """
-    :param input_shape: (batch_size, timesteps, data_dim)
-    :return:
-    """
-    model = Sequential()
-    model.add(LSTM(64, stateful=True, return_sequences=True, batch_input_shape=batch_input_shape))
-    # model.add(LSTM(64, stateful=True, return_sequences=True, batch_input_shape=batch_input_shape))
-    model.add(LSTM(32))
-    model.add(Dense(num_classes, activation='softmax'))
-    opt = SGD(lr=0.01)
-    model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
-    return model
+	"""
+	:param input_shape: (batch_size, timesteps, data_dim)
+	:return:
+	"""
+	model = Sequential()
+	model.add(LSTM(64, stateful=True, return_sequences=True, batch_input_shape=batch_input_shape))
+	# model.add(LSTM(64, stateful=True, return_sequences=True, batch_input_shape=batch_input_shape))
+	model.add(LSTM(32))
+	model.add(Dense(num_classes, activation='softmax'))
+	opt = SGD(lr=0.01)
+	model.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
+	return model
 
 model = build_model(batch_input_shape, num_classes, input_shape)
 # model = build_model(batch_input_shape, num_classes, input_shape)
 
 def data_gen(x, y):
-    for dt in range(len(x)):
-        # print("x[dt].shape: ", x[dt].shape, "y[dt].shape: ",y[dt].shape)
-        # yield np.reshape(x[dt], (1,10,2)), y[dt]
-        # yield np.reshape(x[dt], (1, 50, 2)), np.reshape(y[dt], (1, 3))
-        yield np.reshape(x[dt], (1, n_prev, 2)), np.reshape(y[dt], (1, 3))
+	for dt in range(len(x)):
+		# print("x[dt].shape: ", x[dt].shape, "y[dt].shape: ",y[dt].shape)
+		# yield np.reshape(x[dt], (1,10,2)), y[dt]
+		# yield np.reshape(x[dt], (1, 50, 2)), np.reshape(y[dt], (1, 3))
+		yield np.reshape(x[dt], (1, n_prev, 2)), np.reshape(y[dt], (1, 3))
 
 x_y_train_gen_func = data_gen(x_train, y_train_encoded)
 x_y_test_gen_func = data_gen(x_test, y_test_encoded)
@@ -96,11 +96,11 @@ x_y_test_gen_func = data_gen(x_test, y_test_encoded)
 
 # model.fit(x_train, y_train_encoded,batch_size=128, epochs=50, validation_data=(x_test, y_test_encoded))
 history=model.fit_generator(x_y_train_gen_func,
-                            steps_per_epoch = num_train_samples // batch_size,
-                            epochs = epochs,
-                            validation_data = x_y_test_gen_func,
-                            # validation_data = x_y_test_gen_func)
-                            validation_steps = num_test_samples // batch_size)
+							steps_per_epoch = num_train_samples // batch_size,
+							epochs = epochs,
+							validation_data = x_y_test_gen_func,
+							# validation_data = x_y_test_gen_func)
+							validation_steps = num_test_samples // batch_size)
 # model.fit_generator(x_train_gen_func, )
 # score = model.evaluate(x_test, y_test_encoded, batch_size=128)
 # print(score)

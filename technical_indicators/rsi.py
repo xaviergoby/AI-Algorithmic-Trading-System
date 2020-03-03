@@ -76,11 +76,14 @@ class RSI:
 
 
 if __name__ == "__main__":
-    from data_loader.load_data import data_getter_funcs
-    apple = data_getter_funcs.get_stocks_data()
-    close = apple["Close"]
+    # from data_loader.load_data import data_getter_funcs
+    from data_loader.yahoo_stock_data_feed import YahooStockDataFeed
+    nvda = YahooStockDataFeed().stocks_data_dict["NVDA"]
+    close = nvda["Close"]
     rsi = RSI(close, time_period=14, overbought_level=70, oversold_level=30)
     rsi_values = rsi.get_rsi_values()
+    print(rsi_values.head())
+    import matplotli
 #     print(len(rsi.get_rsi_values()), type(rsi.rsi_values), type(rsi.get_rsi_values()), rsi.rsi_values.shape)
 #     print(len(rsi.get_rsi_labels()), type(rsi.rsi_labels), type(rsi.get_rsi_labels()))
 

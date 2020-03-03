@@ -28,7 +28,7 @@ class TestStrategy:
                 continue
 
 if __name__ == "__main__":
-    from data_loader.download_stocks_basket_data import StockDataBasket
+    from load_data.download_stocks_basket_data import StockDataBasket
     import os
     # stock_basket_idxs_dict = {"Semiconductors": ["INTC", "QCOM", "TXN", "ADI", "XLNX", "ASML", "NVDA", "AMD"]}
     # x = StockDataBasket(stock_basket_idxs_dict)

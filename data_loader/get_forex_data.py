@@ -12,9 +12,10 @@ import selenium
 
 
 # My Alpha Vantage API KEY: Y108UZC2YEK2VKN5
+api_key = "Y108UZC2YEK2VKN5"
 
 
 
 
 
-eur_jpy = AVForexReader(symbols="EUR/JPY", retry_count=3, pause=0.1, api_key="Y108UZC2YEK2VKN5")
+eur_jpy = AVForexReader(symbols="EUR/JPY", retry_count=3, pause=0.1, api_key=api_key)
